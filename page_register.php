@@ -1,6 +1,5 @@
 <?php session_start() ?>
 <?php require "functions.php"?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +61,7 @@
                             </div>
                             <div class="col-xl-6 ml-auto mr-auto">
                                 <div class="card p-4 rounded-plus bg-faded">
-                                        <?php display_flash_message('danger') ?>
+                                    <?php display_flash_message('danger') ?>
                                     <form id="js-login" novalidate="" method="POST" action="register.php">
                                         <div class="form-group">
                                             <label class="form-label" for="emailverify">Email</label>

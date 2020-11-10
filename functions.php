@@ -1,6 +1,5 @@
 <?php
 
-
 function get_user_by_email($email){
     $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
     $sql = "SELECT * FROM users WHERE email=:email";
@@ -33,5 +32,4 @@ function display_flash_message($name) {
 
 function redirect_to($path){
     header('Location: /' . $path);
-
 };

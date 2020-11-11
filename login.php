@@ -2,7 +2,6 @@
 
 session_start();
 
-
 require "functions.php";
 
 $email    = $_POST['email'];
@@ -15,7 +14,6 @@ if(empty($user)) {
     redirect_to('page_Login.php');
     exit;
 }
-
 
 set_flash_message('success', 'Здравствуйте ' . $email);
 

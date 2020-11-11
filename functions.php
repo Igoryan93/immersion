@@ -1,5 +1,5 @@
 <?php
-
+// Registration
 function get_user_by_email($email){
     $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
     $sql = "SELECT * FROM users WHERE email=:email";
@@ -33,3 +33,21 @@ function display_flash_message($name) {
 function redirect_to($path){
     header('Location: /' . $path);
 };
+
+// Auth
+function login($email, $password) {
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "SELECT * FROM users WHERE email=:email";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'email'  => $email
+    ]);
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+    if(password_verify($password, $user['password'])) {
+        return true;
+    } else {
+        return false;
+    }
+}
+

@@ -1,7 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Igoryan
- * Date: 12.11.2020
- * Time: 11:21
- */
+
+session_start();
+
+require "functions.php";
+
+$user = $_SESSION['user'];
+
+is_not_logged_in($user);
+
+function is_not_logged_in($user) {
+    if (isset($user) && empty($user)) {
+        redirect_to("login.php");
+        exit;
+    }
+}
+
+$allUsers = select_all_users();
+
+
+

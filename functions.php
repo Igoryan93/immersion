@@ -45,9 +45,19 @@ function login($email, $password) {
     $user = $statement->fetch(PDO::FETCH_ASSOC);
 
     if(password_verify($password, $user['password'])) {
-        return true;
+        return $user;
     } else {
         return false;
     }
+}
+
+// Select all users
+function select_all_users() {
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "SELECT * FROM users";
+    $statement = $db->prepare($sql);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
 }
 

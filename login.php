@@ -17,4 +17,6 @@ if(empty($user)) {
 
 set_flash_message('success', 'Здравствуйте ' . $email);
 
-redirect_to('page_login.php');
+$_SESSION['user'] = $user;
+
+redirect_to('users.php');

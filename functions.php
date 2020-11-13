@@ -17,6 +17,10 @@ function add_user($email, $password) {
         'email'    => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT)
     ]);
+
+    $selectUserById = get_user_by_email($email);
+    return $selectUserById;
+
 };
 
 function set_flash_message($name, $message) {
@@ -61,3 +65,67 @@ function select_all_users() {
     return $result;
 }
 
+// Edit our information
+function edit($id, $username, $job_title, $phone, $address) {
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "UPDATE users SET name=:name, work=:work, tel=:tel, address=:address WHERE id=:id";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'id'      => $id,
+        'name'    => $username,
+        'work'    => $job_title,
+        'tel'     => $phone,
+        'address' => $address,
+    ]);
+}
+
+// Edit status
+function set_status($id, $status) {
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "UPDATE users SET status=:status WHERE id=:id";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'id'      => $id,
+        'status' => $status
+    ]);
+}
+
+// Edit image
+function upload_avatar($id, $image) {
+    $imageName = uniqid($image['image']['name']);
+    if(isset($image)) {
+        $uploadFile = 'img/demo/avatars/' . $imageName;
+        move_uploaded_file($image['image']['tmp_name'], $uploadFile);
+    }
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "UPDATE users SET image=:image WHERE id=:id";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'id'      => $id,
+        'image' => $imageName
+    ]);
+}
+
+// Edit socials
+function add_social_links($id, $vk, $telegram, $instagram) {
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "UPDATE users SET vk=:vk, telegram=:telegram, instagram=:instagram WHERE id=:id";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'id'        => $id,
+        'vk'        => $vk,
+        'telegram'  => $telegram,
+        'instagram' => $instagram
+    ]);
+}
+
+// Role default
+function role_default($id, $role) {
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "UPDATE users SET role=:role WHERE id=:id";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'id'        => $id,
+        'role' => $role
+    ]);
+}

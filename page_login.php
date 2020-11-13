@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php require "functions.php"?>
-<?php var_dump($_SESSION) ?>
+<?php var_dump($_SESSION);  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

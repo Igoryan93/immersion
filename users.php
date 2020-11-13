@@ -29,16 +29,14 @@
                         <a class="nav-link" href="page_login.php">Войти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Выйти</a>
+                        <a class="nav-link" href="loginOut.php">Выйти</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
         <main id="js-page-content" role="main" class="page-content mt-3">
-            <div class="alert alert-success">
-                Профиль успешно обновлен.
-            </div>
+            <?php display_flash_message('success') ?>
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-users'></i> Список пользователей
@@ -47,7 +45,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <?php if ($user['role'] === 'admin'): ?>
-                        <a class="btn btn-success" href="create_user.html">Добавить</a>
+                        <a class="btn btn-success" href="create_user.php">Добавить</a>
                     <?php endif; ?>
 
                     <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
@@ -98,7 +96,7 @@
                                                     Удалить
                                                 </a>
                                             </div>
-                                            <span class="text-truncate text-truncate-xl">IT Director, Gotbootstrap Inc.</span>
+                                            <span class="text-truncate text-truncate-xl"><?php echo $item['work']; ?></span>
                                         </div>
                                         <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_1 > .card-body + .card-body" aria-expanded="false">
                                             <span class="collapsed-hidden">+</span>
@@ -167,7 +165,7 @@
                                                     </a>
                                                 </div>
                                             <?php endif; ?>
-                                            <span class="text-truncate text-truncate-xl">IT Director, Gotbootstrap Inc.</span>
+                                            <span class="text-truncate text-truncate-xl"><?php echo $item['work']; ?></span>
                                         </div>
                                         <button class="js-expand-btn btn btn-sm btn-default d-none" data-toggle="collapse" data-target="#c_1 > .card-body + .card-body" aria-expanded="false">
                                             <span class="collapsed-hidden">+</span>

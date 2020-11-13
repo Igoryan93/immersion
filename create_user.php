@@ -1,6 +1,7 @@
 <?php session_start() ?>
 <?php require "functions.php"?>
 <?php
+    // Проверяем на странице Админ или нет
     if($_SESSION['user']['role'] !== 'admin') {
         redirect_to('users.php');
     }

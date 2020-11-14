@@ -37,6 +37,7 @@
 
         <main id="js-page-content" role="main" class="page-content mt-3">
             <?php display_flash_message('success') // Показываем окно об успехе ?>
+            <?php display_flash_message('danger') // Показываем окно ошибки редактирования ?>
             <div class="subheader">
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-users'></i> Список пользователей
@@ -78,16 +79,16 @@
                                                 <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
                                             </a>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="edit.php?<?php echo $item['id']; ?>">
+                                                <a class="dropdown-item" href="edit.php?id=<?php echo $item['id']; ?>">
                                                     <i class="fa fa-edit"></i>
                                                     Редактировать</a>
-                                                <a class="dropdown-item" href="security.php?<?php echo $item['id']; ?>">
+                                                <a class="dropdown-item" href="security.php?id=<?php echo $item['id']; ?>">
                                                     <i class="fa fa-lock"></i>
                                                     Безопасность</a>
-                                                <a class="dropdown-item" href="status.php?<?php echo $item['id']; ?>">
+                                                <a class="dropdown-item" href="status.php?id=<?php echo $item['id']; ?>">
                                                     <i class="fa fa-sun"></i>
                                                     Установить статус</a>
-                                                <a class="dropdown-item" href="media.php?<?php echo $item['id']; ?>">
+                                                <a class="dropdown-item" href="media.php?id=<?php echo $item['id']; ?>">
                                                     <i class="fa fa-camera"></i>
                                                     Загрузить аватар
                                                 </a>
@@ -146,16 +147,16 @@
                                             </a>
                                             <?php if($user['id'] === $item['id']): ?>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="edit.php?<?php echo $item['id']; ?>">
+                                                    <a class="dropdown-item" href="edit.php?id=<?php echo $item['id']; ?>">
                                                         <i class="fa fa-edit"></i>
                                                         Редактировать</a>
-                                                    <a class="dropdown-item" href="security.php?<?php echo $item['id']; ?>">
+                                                    <a class="dropdown-item" href="security.php?id=<?php echo $item['id']; ?>">
                                                         <i class="fa fa-lock"></i>
                                                         Безопасность</a>
-                                                    <a class="dropdown-item" href="status.php?<?php echo $item['id']; ?>">
+                                                    <a class="dropdown-item" href="status.php?id=<?php echo $item['id']; ?>">
                                                         <i class="fa fa-sun"></i>
                                                         Установить статус</a>
-                                                    <a class="dropdown-item" href="media.php?<?php echo $item['id']; ?>">
+                                                    <a class="dropdown-item" href="media.php?id=<?php echo $item['id']; ?>">
                                                         <i class="fa fa-camera"></i>
                                                         Загрузить аватар
                                                     </a>

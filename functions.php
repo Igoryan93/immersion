@@ -129,3 +129,34 @@ function role_default($id, $role) {
         'role' => $role
     ]);
 }
+
+// Check author
+function is_author($logged_user_id, $edit_user_id) {
+    $user = $_SESSION['user'];
+
+    if($logged_user_id !== $edit_user_id && $user['role'] !== 'admin') {
+        set_flash_message('danger', 'Можно редактировать только свой профиль');
+        redirect_to('users.php');
+        exit;
+    }
+}
+
+// Get user by id
+function get_user_by_id($id) {
+   $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+   $sql = "SELECT * FROM users WHERE id=:id";
+   $statement = $db->prepare($sql);
+   $statement->execute([
+        'id' => $id
+   ]);
+   $user = $statement->fetch(PDO::FETCH_ASSOC);
+   return $user;
+}
+
+// Edit info logged user
+function edit_info($user_id, $username, $job_title, $phone, $address) {
+    $id = $user_id['id'];
+    edit($id, $username, $job_title, $phone, $address);
+    set_flash_message('success', 'Пользователь с E-mail ' . $user_id['email'] . ' был успешно изменен!');
+    redirect_to('edit.php?id=' . $id);
+}

@@ -160,3 +160,33 @@ function edit_info($user_id, $username, $job_title, $phone, $address) {
     set_flash_message('success', 'Пользователь с E-mail ' . $user_id['email'] . ' был успешно изменен!');
     redirect_to('edit.php?id=' . $id);
 }
+
+// Edit security profile
+function edit_credantials($user_id, $email, $password) {
+    $userId = get_user_by_id($user_id['id']);
+    $userEmail = get_user_by_email($email);
+
+    if ($userEmail[0]['id'] !== $userId['id'] && $userEmail[0]['id'] !== null) {
+        if($userId['email'] === $email) {
+            set_flash_message('danger', 'Этот Email уже занят');
+            redirect_to('security.php?id=' . $user_id['id']);
+            exit;
+        }
+        set_flash_message('danger', 'Этот Email уже занят');
+        redirect_to('security.php?id=' . $user_id['id']);
+        exit;
+    }
+
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "UPDATE users SET email=:email, password=:password WHERE id=:id";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'id'       => $user_id['id'],
+        'email'    => $email,
+        'password' => $password
+    ]);
+
+    set_flash_message('success', 'Профиль успешно обновлен');
+    redirect_to('security.php?id=' . $user_id['id']);
+
+}

@@ -96,8 +96,10 @@ function upload_avatar($id, $image) {
     $oldName = get_user_by_id($id);
     $oldImage = 'img/demo/avatars/' . $oldName['image'];
     if(isset($image)) {
-        if(file_exists($oldImage)) {
-            unlink($oldImage);
+        if(!empty($oldName['image'])) {
+            if(file_exists($oldImage)) {
+                unlink($oldImage);
+            }
         }
         $uploadFile = 'img/demo/avatars/' . $imageName;
         move_uploaded_file($image['image']['tmp_name'], $uploadFile);
@@ -110,8 +112,6 @@ function upload_avatar($id, $image) {
         'image' => $imageName
     ]);
 }
-
-
 
 // Checking image
 function has_image($user_id, $image) {

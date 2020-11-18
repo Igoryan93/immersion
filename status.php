@@ -1,3 +1,34 @@
+<?php session_start(); ?>
+<?php
+    require "functions.php";
+    if(empty($_SESSION['user'])) {
+        set_flash_message('danger', 'Вы не авторизованы, пожалуйста авторизуйтесь');
+        redirect_to('page_login.php');
+        exit;
+    }
+
+    $logged_user_id = $_SESSION['user']['id'];
+    $edit_user_id = $_GET['id'];
+
+    if ($_SESSION['user']['role'] === 'admin') {
+        $logged_user_id = $_SESSION['user']['id'];
+    }
+
+    is_author($logged_user_id, $edit_user_id);
+
+    $userById = get_user_by_id($edit_user_id);
+
+    $_SESSION['editUser'] = $userById;
+
+    $allStatus = select_all_users();
+
+    $arrayStatus= [];
+    foreach ($allStatus as $status) {
+        $arrayStatus[] = $status['status'];
+    }
+    $res = array_unique($arrayStatus);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +69,7 @@
             </h1>
 
         </div>
-        <form action="">
+        <form action="functionsStatus.php" method="POST">
             <div class="row">
                 <div class="col-xl-6">
                     <div id="panel-1" class="panel">
@@ -52,10 +83,30 @@
                                         <!-- status -->
                                         <div class="form-group">
                                             <label class="form-label" for="example-select">Выберите статус</label>
-                                            <select class="form-control" id="example-select">
-                                                <option>Онлайн</option>
-                                                <option>Отошел</option>
-                                                <option>Не беспокоить</option>
+                                            <select class="form-control" id="example-select" name="status">
+                                                <?php foreach ($res as $item): ?>
+                                                    <?php if($_SESSION['editUser']['status'] === $item): ?>
+                                                        <option value="<?php echo $item ?>" selected>
+                                                            <?php if($item === 'success'): ?>
+                                                                <?php echo 'Онлайн' ?>
+                                                            <?php elseif($item === 'warning'): ?>
+                                                                <?php echo 'Отошел' ?>
+                                                            <?php elseif($item === 'danger'): ?>
+                                                                <?php echo 'Не беспокоить' ?>
+                                                            <?php endif; ?>
+                                                        </option>
+                                                    <?php else: ?>
+                                                        <option value="<?php echo $item ?>">
+                                                            <?php if($item === 'success'): ?>
+                                                                <?php echo 'Онлайн' ?>
+                                                            <?php elseif($item === 'warning'): ?>
+                                                                <?php echo 'Отошел' ?>
+                                                            <?php elseif($item === 'danger'): ?>
+                                                                <?php echo 'Не беспокоить' ?>
+                                                            <?php endif; ?>
+                                                        </option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                     </div>

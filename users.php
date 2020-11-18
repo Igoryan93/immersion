@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php require "functionUsers.php"?>
+<?php require "functionUsers.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

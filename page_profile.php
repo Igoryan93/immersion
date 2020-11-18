@@ -1,14 +1,28 @@
 <?php session_start(); ?>
 <?php
     require "functions.php";
+    $userId = $_GET['id'];
 
-    $user = $_SESSION['user'];
+    $user = get_user_by_id($userId);
 
-    if (empty($user)) {
+    if (empty($_SESSION['user']) && empty($_SESSION['editUser'])) {
         set_flash_message('danger', 'Необходимо авторизоваться');
         redirect_to('page_login.php');
         exit;
     }
+
+    if($_SESSION['user']['id'] !== $userId && $_SESSION['user']['role'] !== 'admin') {
+        set_flash_message('danger', 'Можно редактировать только свой профиль');
+        redirect_to('users.php');
+        exit;
+    } elseif ($userId === null) {
+        set_flash_message('danger', 'Можно редактировать только свой профиль');
+        redirect_to('users.php');
+    }
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +63,7 @@
                 <h1 class="subheader-title">
                     <i class='subheader-icon fal fa-user'></i> <?php echo $user['name']; ?>
                 </h1>
+                <?php echo display_flash_message('success'); ?>
             </div>
             <div class="row">
               <div class="col-lg-6 col-xl-6 m-auto">

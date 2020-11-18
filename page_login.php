@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php require "functions.php"?>
-<?php var_dump($_SESSION);  ?>
+<?php var_dump($_SESSION); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +37,7 @@
         </div>
         <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
             <?php display_flash_message('success') ?>
-            <?php display_flash_message('danger') ?>
+            <?php display_flash_message('danger'); ?>
             <form action="login.php" method="POST">
                 <div class="form-group">
                     <label class="form-label" for="username">Email</label>

@@ -92,8 +92,13 @@ function set_status($id, $status) {
 
 // Edit image
 function upload_avatar($id, $image) {
-    $imageName = uniqid($image['image']['name']);
+    $imageName = uniqid() . $image['image']['name'];
+    $oldName = get_user_by_id($id);
+    $oldImage = 'img/demo/avatars/' . $oldName['image'];
     if(isset($image)) {
+        if(file_exists($oldImage)) {
+            unlink($oldImage);
+        }
         $uploadFile = 'img/demo/avatars/' . $imageName;
         move_uploaded_file($image['image']['tmp_name'], $uploadFile);
     }
@@ -104,6 +109,19 @@ function upload_avatar($id, $image) {
         'id'      => $id,
         'image' => $imageName
     ]);
+}
+
+
+
+// Checking image
+function has_image($user_id, $image) {
+    $getImage = get_user_by_id($user_id);
+
+    if(empty($getImage['image']) || $getImage['image'] !== $image) {
+        return false;
+    } else {
+        return $getImage;
+    }
 }
 
 // Edit socials

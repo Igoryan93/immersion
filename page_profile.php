@@ -18,6 +18,7 @@
     } elseif ($userId === null) {
         set_flash_message('danger', 'Можно редактировать только свой профиль');
         redirect_to('users.php');
+        exit;
     }
 
 ?>

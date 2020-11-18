@@ -20,9 +20,6 @@
         redirect_to('users.php');
     }
 
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

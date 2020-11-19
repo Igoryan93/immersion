@@ -206,5 +206,23 @@ function edit_credantials($user_id, $email, $password) {
 
     set_flash_message('success', 'Профиль успешно обновлен');
     redirect_to('security.php?id=' . $user_id['id']);
+}
+
+// Delete user by id
+function delete($user_id) {
+    $oldName = get_user_by_id($user_id['id']);
+    $oldImage = 'img/demo/avatars/' . $oldName['image'];
+    if(!empty($oldName['image'])) {
+        if(file_exists($oldImage)) {
+            unlink($oldImage);
+        }
+    }
+
+    $db = new PDO("mysql:host=localhost; dbname=registration", "root", "root");
+    $sql = "DELETE FROM users WHERE id=:id";
+    $statement = $db->prepare($sql);
+    $statement->execute([
+        'id' => $user_id['id'],
+    ]);
 
 }
